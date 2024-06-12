@@ -6,3 +6,5 @@ pillow
 drf-yasg
 django-filter
 django-jazzmin
+redis
+selery

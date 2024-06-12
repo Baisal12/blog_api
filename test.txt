@@ -1,0 +1,55 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=musacojaevbaisalbek
+Group=www-data
+WorkingDirectory=/home/musacojaevbaisalbek/blog_api
+ExecStart= /home/musacojaevbaisalbek/.cache/pypoetry/virtualenvs/blog-api-2Ayqe3ii-py3.10/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/musacojaevbaisalbek/blog_api/blog_api.sock config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+/home/musacojaevbaisalbek/.cache/pypoetry/virtualenvs/blog-api-2Ayqe3ii-py3.10/bin/gunicorn
+
+
+
+
+server {
+    listen 80;
+    server_name 34.125.66.62;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+        root /home/musacojaevbaisalbek/blog_api;
+    }
+
+    location /media/ {
+        root /home/musacojaevbaisalbek/blog_api;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/musacojaevbaisalbek/blog_api/blog_api.sock;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
